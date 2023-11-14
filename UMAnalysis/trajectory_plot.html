@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+
+
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<!-- Uncomment this line if you want to dataTool extension
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/dataTool.min.js"></script>
+-->
+<!-- Uncomment this line if you want to use gl extension
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+-->
+<!-- Uncomment this line if you want to echarts-stat extension
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+-->
+<!-- Uncomment this line if you want to use map
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+-->
+<!-- Uncomment these two lines if you want to use bmap extension
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
+-->
+
+<script type="text/javascript">
+    let dom = document.getElementById('container');
+    let myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+
+    let option;
+
+    function generateCirclePoints(x, y, r) {
+        let points = [];
+
+        for (let i = 0; i < 1000; i++) {
+            let angle = (i / 1000) * 2 * Math.PI;
+            let pointX = x + r * Math.cos(angle);
+            let pointY = y + r * Math.sin(angle);
+            points.push([pointX, pointY]);
+        }
+
+        return points;
+    }
+
+    option = {
+        animation: false,
+        grid: {
+            top: 20,
+            left: 20,
+            right: 20,
+            bottom: 20
+        },
+        xAxis: {
+            name: 'x',
+            min: -100,
+            max: 100,
+            minorTick: {
+                show: true
+            },
+            minorSplitLine: {
+                show: true
+            }
+        },
+        yAxis: {
+            name: 'y',
+            min: -100,
+            max: 100,
+            minorTick: {
+                show: true
+            },
+            minorSplitLine: {
+                show: true
+            }
+        },
+        dataZoom: [
+            {
+                show: true,
+                type: 'inside',
+                filterMode: 'none',
+                xAxisIndex: [0],
+                startValue: -0.17,
+                endValue: 0.17
+            },
+            {
+                show: true,
+                type: 'inside',
+                filterMode: 'none',
+                yAxisIndex: [0],
+                startValue: -0.02,
+                endValue: 0.32
+            }
+        ],
+        series: [
+            // 大圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(0, 0.15, 0.15)
+            },
+            //中心圆
+            {
+                data: [[0, 0.15]],
+                type: 'line',
+                symbol: 'circle',
+                symbolSize: 12,
+                itemStyle: {
+                    borderWidth: 1,
+                    borderColor: '#008F7A',
+                    color: '#008F7A'
+                }
+            },
+            // 第1小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(0, 0.3, 0.01)
+            },
+            // 第2小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(0.15 / Math.sqrt(2), 0.15 + 0.15 / Math.sqrt(2), 0.01)
+            },
+            // 第3小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(0.15,  0.15, 0.01)
+            },
+            // 第4小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(0.15 / Math.sqrt(2), 0.15 + -0.15 / Math.sqrt(2), 0.01)
+            },
+            // 第5小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(0, 0, 0.01)
+            },
+            // 第6小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(-0.15 / Math.sqrt(2), 0.15 + -0.15 / Math.sqrt(2), 0.01)
+            },
+            // 第7小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(-0.15,  0.15, 0.01)
+            },
+            // 第8小圆
+            {
+                type: 'line',
+                showSymbol: false,
+                clip: true,
+                lineStyle: {
+                    color: '#000000',
+                    width: 1
+                },
+                data: generateCirclePoints(-0.15 / Math.sqrt(2), 0.15 + 0.15 / Math.sqrt(2), 0.01)
+            },
+            // 0
+            {
+                name: '0',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_0
+            },
+            // 正向1
+            {
+                name: '1',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_1
+            },
+            // 正向2
+            {
+                name: '2',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_2
+            },
+            // 正向3
+            {
+                name: '3',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_3
+            },
+            // 正向4
+            {
+                name: '4',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_4
+            },
+            // 正向5
+            {
+                name: '5',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_5
+            },
+            // 正向6
+            {
+                name: '6',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_6
+            },
+            // 正向7
+            {
+                name: '7',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_7
+            },
+            // 正向8
+            {
+                name: '8',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#9093f8"},
+                data: data_8
+            },
+            // 反向1
+            {
+                name: '-1',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-1
+            },
+            // 反向2
+            {
+                name: '-2',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-2
+            },
+            // 反向3
+            {
+                name: '-3',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-3
+            },
+            // 反向4
+            {
+                name: '-4',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-4
+            },
+            // 反向5
+            {
+                name: '-5',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-5
+            },
+            // 反向6
+            {
+                name: '-6',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-6
+            },
+            // 反向7
+            {
+                name: '-7',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-7
+            },
+            // 反向8
+            {
+                name: '-8',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {color: "#bb3d45"},
+                data: data_-8
+            }
+        ]
+    };
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+</body>
+</html>

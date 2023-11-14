@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+<script type="text/javascript">
+    let dom = document.getElementById('container');
+    let myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+
+    let option;
+    let timestamp = {0};
+    let data1 = {1};
+    let data2 = {2};
+    let data3 = {3};
+    let data4 = {4};
+    let data5 = {5};
+    let data6 = {6};
+    let data7 = {7};
+    let data8 = {8};
+
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            position: function (pt) {
+                return [pt[0], '10%'];
+            }
+        },
+        grid: {
+            top: 50,
+            left: 100,
+            right: 20,
+            bottom: 60
+        },
+        legend: {
+            data: ['CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6', 'CH7', 'CH8'],
+            orient: 'vertical',
+            left: 'left'
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: timestamp
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, 0]
+        },
+        dataZoom: [
+            {
+                type: 'inside',
+                start: 0,
+                end: 10
+            },
+            {
+                start: 0,
+                end: 10
+            }
+        ],
+        series: [
+            // CH1
+            {
+                name: 'CH1',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(255, 70, 131)',
+                data: data1
+            },
+            // CH2
+            {
+                name: 'CH2',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(110, 131, 200)',
+                data: data2
+            },
+            // CH3
+            {
+                name: 'CH3',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(63, 200, 156)',
+                data: data3
+            },
+            // CH4
+            {
+                name: 'CH4',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(231, 76, 60)',
+                data: data4
+            },
+            // CH5
+            {
+                name: 'CH5',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(243, 156, 18)',
+                data: data5
+            },
+            // CH6
+            {
+                name: 'CH6',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(52, 152, 219)',
+                data: data6
+            },
+            // CH7
+            {
+                name: 'CH7',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(155, 89, 182)',
+                data: data7
+            },
+            // CH8
+            {
+                name: 'CH8',
+                type: 'line',
+                symbol: 'none',
+                sampling: 'lttb',
+                color: 'rgb(46, 204, 113)',
+                data: data8
+            },
+        ],
+        animation: false,
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+</body>
+</html>
